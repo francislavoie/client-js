@@ -27,9 +27,10 @@ class EventEmitterTransport extends Transport {
   public sendData(
     data: JSONRPCRequestData,
     timeout: number | null = null,
+    signal?: AbortSignal | null,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
-    const prom = this.transportRequestManager.addRequest(data, timeout);
+    const prom = this.transportRequestManager.addRequest(data, timeout, signal);
     const notifications = getNotifications(data);
     const parsedData = this.parseData(data);
     try {

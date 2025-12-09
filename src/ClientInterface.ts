@@ -3,6 +3,8 @@ import { IJSONRPCNotification } from "./Request.js";
 interface Arguments {
   readonly method: string;
   readonly params?: readonly unknown[] | object;
+  readonly timeout?: number;
+  readonly signal?: AbortSignal;
 }
 
 export type RequestArguments = Arguments;

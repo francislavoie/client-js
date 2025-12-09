@@ -1,11 +1,30 @@
-import { Client } from "./index.js";
-import RequestManager from "./RequestManager.js";
-import EventEmitterTransport from "./transports/EventEmitterTransport.js";
+import Client, {
+  RequestManager,
+  EventEmitterTransport,
+  HTTPTransport,
+  WebSocketTransport,
+  PostMessageWindowTransport,
+  PostMessageIframeTransport,
+  JSONRPCError,
+  AbortError,
+} from "./index.js";
 import { EventEmitter } from "events";
 import { addMockServerTransport } from "./__mocks__/eventEmitter.js";
 import { generateMockNotificationRequest } from "./__mocks__/requestData.js";
 
 describe("client-js", () => {
+  it("exposes the package exports", () => {
+    expect(Client).toBeDefined();
+    expect(RequestManager).toBeDefined();
+    expect(EventEmitterTransport).toBeDefined();
+    expect(HTTPTransport).toBeDefined();
+    expect(WebSocketTransport).toBeDefined();
+    expect(PostMessageWindowTransport).toBeDefined();
+    expect(PostMessageIframeTransport).toBeDefined();
+    expect(JSONRPCError).toBeDefined();
+    expect(AbortError).toBeDefined();
+  });
+
   it("can be constructed", () => {
     const emitter = new EventEmitter();
     const c = new Client(

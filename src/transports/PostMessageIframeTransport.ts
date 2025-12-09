@@ -51,9 +51,10 @@ class PostMessageIframeTransport extends Transport {
   public async sendData(
     data: JSONRPCRequestData,
     _timeout: number | null = 5000,
+    signal?: AbortSignal | null,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
-    const prom = this.transportRequestManager.addRequest(data, null);
+    const prom = this.transportRequestManager.addRequest(data, null, signal);
     const notifications = getNotifications(data);
     if (this.frame) {
       this.frame.postMessage((data as IJSONRPCData).request, "*");

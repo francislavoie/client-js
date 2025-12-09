@@ -39,9 +39,10 @@ class WebSocketTransport extends Transport {
   public async sendData(
     data: JSONRPCRequestData,
     timeout: number | null = 5000,
+    signal?: AbortSignal | null,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
-    let prom = this.transportRequestManager.addRequest(data, timeout);
+    let prom = this.transportRequestManager.addRequest(data, timeout, signal);
     const notifications = getNotifications(data);
     try {
       this.connection.send(JSON.stringify(this.parseData(data)));

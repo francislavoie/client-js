@@ -89,7 +89,11 @@ class RequestManager {
       });
       return result;
     }
-    return this.getPrimaryTransport().sendData(payload, timeout);
+    return this.getPrimaryTransport().sendData(
+      payload,
+      requestObject.timeout || timeout,
+      requestObject.signal,
+    );
   }
 
   public close(): void {

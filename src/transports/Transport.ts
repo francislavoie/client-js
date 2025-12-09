@@ -36,7 +36,8 @@ export abstract class Transport {
   public abstract close(): void;
   public abstract sendData(
     data: JSONRPCRequestData,
-    timeout?: number | null, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    timeout?: number | null,
+    signal?: AbortSignal | null, // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any>;
 
   public subscribe(
