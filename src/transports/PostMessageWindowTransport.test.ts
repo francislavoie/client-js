@@ -85,7 +85,7 @@ describe("PostMessageWindowTransport", () => {
           request: generateMockRequest(0, "foo", ["bar"]),
           internalID: 0,
         },
-        100,
+        { timeout: 100 },
       );
       expect(result).toEqual("bar");
       await new Promise((resolve) => setTimeout(resolve, 10));

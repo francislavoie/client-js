@@ -89,11 +89,7 @@ class RequestManager {
       });
       return result;
     }
-    return this.getPrimaryTransport().sendData(
-      payload,
-      options?.timeout,
-      options?.signal,
-    );
+    return this.getPrimaryTransport().sendData(payload, options);
   }
 
   public close(): void {
@@ -124,7 +120,7 @@ class RequestManager {
       return;
     }
 
-    this.getPrimaryTransport().sendData(this.batch);
+  this.getPrimaryTransport().sendData(this.batch);
     this.batch = [];
     this.batchStarted = false;
   }

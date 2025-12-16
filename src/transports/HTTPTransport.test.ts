@@ -222,7 +222,7 @@ describe("HTTPTransport", () => {
     const prom = httpTransport.sendData({
       request: data,
       internalID: 1,
-    }, null, controller.signal);
+    }, { timeout: null, signal: controller.signal });
 
     controller.abort();
 

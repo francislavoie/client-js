@@ -1,4 +1,4 @@
-import { Transport } from "./Transport.js";
+import { Transport, TransportOptions } from "./Transport.js";
 import {
   JSONRPCRequestData,
   getNotifications,
@@ -33,11 +33,12 @@ class HTTPTransport extends Transport {
 
   public async sendData(
     data: JSONRPCRequestData,
-    timeout: number | null = null,
-    signal?: AbortSignal | null,
+    options?: TransportOptions,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
-    const prom = this.transportRequestManager.addRequest(data, timeout, signal);
+  const timeout = options?.timeout ?? null;
+  const signal = options?.signal;
+  const prom = this.transportRequestManager.addRequest(data, timeout, signal);
     const notifications = getNotifications(data);
     const batch = getBatchRequests(data);
     const fetcher = this.injectedFetcher || fetch;
