@@ -51,6 +51,28 @@ describe("client-js", () => {
     expect(typeof c.notify({ method: "my_method" }).then).toEqual("function");
   });
 
+  it("accepts an options object as second arg (timeout + signal)", () => {
+    const emitter = new EventEmitter();
+    const c = new Client(
+      new RequestManager([new EventEmitterTransport(emitter, "from1", "to1")]),
+    );
+    const controller = new AbortController();
+    const promiseLike = c.request({ method: "my_method" }, { timeout: 50, signal: controller.signal });
+    expect(typeof (promiseLike as Promise<unknown>).then).toEqual("function");
+  });
+
+  it("accepts a numeric timeout as second arg for request and notify (backcompat)", () => {
+    const emitter = new EventEmitter();
+    const c = new Client(
+      new RequestManager([new EventEmitterTransport(emitter, "from1", "to1")]),
+    );
+    const reqPromiseLike = c.request({ method: "my_method" }, 50);
+    expect(typeof (reqPromiseLike as Promise<unknown>).then).toEqual("function");
+
+    const notifyPromiseLike = c.notify({ method: "my_method" }, 50);
+    expect(typeof (notifyPromiseLike as Promise<unknown>).then).toEqual("function");
+  });
+
   it("can recieve notifications", (done) => {
     const emitter = new EventEmitter();
     const c = new Client(

@@ -17,8 +17,8 @@ export type NotificationArguments = Arguments;
 export type JSONRPCMessage = RequestArguments | NotificationArguments;
 
 export interface IClient {
-  request(args: RequestArguments, options?: Options): Promise<unknown>;
-  notify(args: NotificationArguments, options?: Options): Promise<unknown>;
+  request(args: RequestArguments, options?: Options | number): Promise<unknown>;
+  notify(args: NotificationArguments, options?: Options | number): Promise<unknown>;
   close(): void;
   onNotification(callback: (data: IJSONRPCNotification) => void): void;
 }

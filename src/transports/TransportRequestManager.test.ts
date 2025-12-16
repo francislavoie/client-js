@@ -43,7 +43,7 @@ describe("Transport Request Manager", () => {
         request: reqData.generateMockRequest(1, "foo", ["bar"]),
         internalID: 1,
       },
-      1000,
+      50,
     );
     await expect(prom).rejects.toThrowError("timeout");
   });

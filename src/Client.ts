@@ -74,18 +74,21 @@ class Client implements IClient {
    * @example
    * myClient.request({method: "foo", params: ["bar"]}).then(() => console.log('foobar'));
    */
-  public async request(requestObject: RequestArguments, options?: Options) {
+  public async request(requestObject: RequestArguments, options?: Options | number) {
     if (this.requestManager.connectPromise) {
       await this.requestManager.connectPromise;
     }
-    return this.requestManager.request(requestObject, false, options);
+    // Backwards-compat: allow passing a number as the second arg (timeout)
+    const normalizedOptions = typeof options === "number" ? { timeout: options } : options;
+    return this.requestManager.request(requestObject, false, normalizedOptions);
   }
 
-  public async notify(requestObject: NotificationArguments, options?: Options) {
+  public async notify(requestObject: NotificationArguments, options?: Options | number) {
     if (this.requestManager.connectPromise) {
       await this.requestManager.connectPromise;
     }
-    return this.requestManager.request(requestObject, true, options);
+    const normalizedOptions = typeof options === "number" ? { timeout: options } : options;
+    return this.requestManager.request(requestObject, true, normalizedOptions);
   }
 
   public onNotification(callback: (data: IJSONRPCNotification) => void) {
