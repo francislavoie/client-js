@@ -139,7 +139,7 @@ const main = async () => {
   }, 100);
 
   try {
-    await client.request({ method: "long_running_method", params: [], timeout: 5000, signal });
+    await client.request({ method: "long_running_method", params: [] }, { timeout: 5000, signal });
   } catch (e) {
     if (e instanceof AbortError) {
       console.log("Request was aborted");
